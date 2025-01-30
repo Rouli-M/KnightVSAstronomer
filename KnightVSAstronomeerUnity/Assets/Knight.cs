@@ -1,8 +1,12 @@
 using DG.Tweening;
 using DG.Tweening.Core;
 using System.Collections;
+using Unity.Cinemachine;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Playables;
+using UnityEngine.Timeline;
+using UnityEngine.UIElements;
 
 public class Knight : MonoBehaviour
 {
@@ -15,15 +19,43 @@ public class Knight : MonoBehaviour
     public float ground_y_level;
     public AnimationCurve jumpCurveBig, jumpCurveSmall;
     public float jump_time;
-    public Coroutine jumpCoroutine;
+    public Coroutine jumpCoroutine, chargeAttackCoroutine;
     public int midair_jumps_left = 0;
+    public float timeSinceLastAttack= 0f;
     public LayerMask groundLayer;
-    public bool turning = true;
+    public enum State { walking_around, rushing, attacking, retreating, jumping, intro }
+    public State state;
+    Animator animator;
+
+    public PlayableDirector playableDirector;
+    public TimelineAsset comeBackTimeline, charge_attack_timeline, attack_timeline;
+    public ShakeCamera shake;
+    public Vector3 initialAttackPosition;
+
+    public CinemachineCamera runCam, attackCam;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        animator = GetComponentInChildren<Animator>();
+        animator.GetBehaviour<HandyBehaviour>().onStateExitEvent("challenge", () => 
+        { 
+            state = State.walking_around;
+            animator.Play("walk");
+        });
+        animator.GetBehaviour<HandyBehaviour>().onStateExitEvent("attack1", () =>
+        {
+            shake.Trigger();
+            timeSinceLastAttack = 0f;
+            //damage astronomeer
+        });
+        animator.GetBehaviour<HandyBehaviour>().onStateExitEvent("attack2", () =>
+        {
+            shake.Trigger();
+            timeSinceLastAttack = 0f;
+            //damage astronomeer
+        });
         rot_vel = current_max_velocity;
     }
 
@@ -33,7 +65,7 @@ public class Knight : MonoBehaviour
         rb.DOLookAt(astronomeer_rb.transform.position, 0);
         //transform.LookAt(astronomeer.transform);
 
-        if(turning)
+        if(state == State.walking_around || state == State.jumping)
         {
             if(rot_vel < current_max_velocity)
             {
@@ -44,22 +76,48 @@ public class Knight : MonoBehaviour
                 rot_vel = current_max_velocity;
             }
         }
-        
+
+        if(state == State.attacking)
+        {
+            // allow repeated attack
+            timeSinceLastAttack += Time.deltaTime;
+
+            if (timeSinceLastAttack > 1.2f)
+            {
+                state = State.retreating;
+                playableDirector.Play(comeBackTimeline);
+            }
+        }
     }
 
     public void FixedUpdate()
     {
-        if(turning)
+        if(state == State.walking_around || state == State.jumping)
             transform.RotateAround(astronomeer.transform.position, Vector3.up, -rot_vel * Time.deltaTime);
     }
 
     public void OnCollisionEnter(Collision collision)
     {
         if (collision.transform.CompareTag("Ground"))
+        {
             ground_y_level = transform.position.y;
+
+            if (state == State.jumping)
+            {
+                animator.Play("roll");
+                state = State.walking_around ;
+            }
+        }
+        else if (collision.transform.CompareTag("Obstacle"))
+        {
+            if(state == State.rushing)
+            {
+                animator.Play("knocked");
+            }
+        }
         else if (collision.transform.CompareTag("Spell"))
         {
-            GetComponent<Animator>().Play("blink", 1, 0f);
+            GetComponentInChildren<Animator>().Play("blink", 1, 0f);
             ParticleSystem ps = collision.gameObject.transform.GetChild(0).GetComponent<ParticleSystem>();
             ps.transform.SetParent(null);
             ps.Play();
@@ -84,12 +142,14 @@ public class Knight : MonoBehaviour
         {
             midair_jumps_left--;
             jumpCoroutine = StartCoroutine(JumpEnumerator(true));
-
         }
     }
 
     public IEnumerator JumpEnumerator(bool small = false)
     {
+        animator.Play("jump", 0, 0f);
+        state = State.jumping;
+
         AnimationCurve curve = jumpCurveBig;
         if (small) curve = jumpCurveSmall;
         float time = 0f;
@@ -104,19 +164,57 @@ public class Knight : MonoBehaviour
         yield return null;
     }
 
+    public IEnumerator ChargeAttackCoroutine()
+    {
+        initialAttackPosition = transform.position;
+        playableDirector.Play(charge_attack_timeline); // will play the animation and set the camera
+        state = State.rushing;
+
+        Vector3 start = transform.position;
+        Vector3 target = astronomeer.transform.position - transform.forward * 2f;
+
+        float time = 0f;
+        float total_time = 0.67f;
+        while (time < total_time)
+        {
+            transform.position = Vector3.Lerp(start, target, time/ total_time);
+            time += Time.deltaTime;
+            yield return null;
+        }
+
+        playableDirector.Play(attack_timeline);
+        state = State.attacking;
+        animator.Play("attack1"); // playing it here instead of in timeline to use trigger
+        timeSinceLastAttack = 0f;
+        yield return null;
+    }
+
     public void Attack()
     {
-        if (!turning) return; // prevent attack while attack
-        turning = false;
-        TweenerCore<Vector3, Vector3, DG.Tweening.Plugins.Options.VectorOptions> approachTween = rb.DOMove(astronomeer.transform.position - transform.forward * 2f, 0.25f, false);
-        approachTween.onComplete += () => { astronomeer.TakeDamage(); };
-        TweenerCore<Vector3, Vector3, DG.Tweening.Plugins.Options.VectorOptions> gobackTween = rb.DOMove(transform.position, 0.4f);
-        gobackTween.onComplete += () => { turning = true; };
+        //if (state == State.rushing || state == State.retreating || state == State.attacking) return; // prevent attack while attack
 
-        DG.Tweening.Sequence sequence = DOTween.Sequence();
-        sequence.Append(approachTween);
-        sequence.Append(gobackTween);
+        if (state == State.attacking)
+        {
+            animator.SetTrigger("attack");
+            return;
+        }
+        if (state != State.walking_around) return; // prevent attack while attack
+
+        if (chargeAttackCoroutine != null) 
+            StopCoroutine(chargeAttackCoroutine);
+        chargeAttackCoroutine = StartCoroutine(ChargeAttackCoroutine());
     }
+
+
+    public void JumpBack()
+    {
+        DG.Tweening.Sequence jumpback = rb.DOJump(initialAttackPosition, 8f,1, 0.8f);
+        jumpback.OnComplete<DG.Tweening.Sequence>(() => { 
+            state = State.walking_around;
+            animator.Play("walk");
+        });
+    }
+
 
     public IEnumerator AttackEnumerator()
     {

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Spell
   - Ground
+  - Obstacle
   layers:
   - Default
   - TransparentFX
