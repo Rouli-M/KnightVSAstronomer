@@ -113,10 +113,10 @@ TextureImporter:
       name: icons_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 316
-        width: 66
-        height: 84
+        x: 6
+        y: 289
+        width: 108
+        height: 100
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -135,10 +135,10 @@ TextureImporter:
       name: icons_1
       rect:
         serializedVersion: 2
-        x: 71
-        y: 310
-        width: 67
-        height: 87
+        x: 115
+        y: 293
+        width: 108
+        height: 99
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -157,10 +157,10 @@ TextureImporter:
       name: circle
       rect:
         serializedVersion: 2
-        x: 149
-        y: 291
+        x: 255
+        y: 289
         width: 108
-        height: 107
+        height: 108
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -179,12 +179,12 @@ TextureImporter:
       name: "pointill\xE9s"
       rect:
         serializedVersion: 2
-        x: 269
-        y: 334
+        x: 376
+        y: 333
         width: 9
         height: 59
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 20, z: 0, w: 19}
       customData: 
       outline: []

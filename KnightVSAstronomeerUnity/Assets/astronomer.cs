@@ -15,16 +15,22 @@ public class Astronomer : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        animator = GetComponentInChildren<Animator>();  
+        animator = GetComponentInChildren<Animator>();
+        animator.GetBehaviour<HandyBehaviour>().onStateExitEvent("hurt", () => { if (spell_cooldown < 2f) spell_cooldown += 2f; });
         radius = (knight.transform.position - transform.position).magnitude;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (knight.GetComponent<Knight>().state == Knight.State.intro)
+            return;
+
+
         if (spell_cooldown > 0)
         {
             spell_cooldown -= Time.deltaTime;
+            
             if(spell_cooldown <= 0)
             {
                 //ShootFireball();
@@ -37,6 +43,7 @@ public class Astronomer : MonoBehaviour
     public void TakeDamage()
     {
         animator.Play("hurt",0,0f);
+        GetComponent<AudioClipPlayRandomizer>().PlayRandom();
         //GetComponent<Animator>().Play("blink", 1, 0f);
     }
 

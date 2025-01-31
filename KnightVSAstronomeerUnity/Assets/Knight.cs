@@ -23,6 +23,7 @@ public class Knight : MonoBehaviour
     public int midair_jumps_left = 0;
     public float timeSinceLastAttack= 0f;
     public LayerMask groundLayer;
+    public AudioClipPlayRandomizer swordHitSound;
     public enum State { walking_around, rushing, attacking, retreating, jumping, intro }
     public State state;
     Animator animator;
@@ -31,8 +32,6 @@ public class Knight : MonoBehaviour
     public TimelineAsset comeBackTimeline, charge_attack_timeline, attack_timeline;
     public ShakeCamera shake;
     public Vector3 initialAttackPosition;
-
-    public CinemachineCamera runCam, attackCam;
 
     public CooldownButton jumpButton, attackButton;
 
@@ -45,12 +44,14 @@ public class Knight : MonoBehaviour
         animator.GetBehaviour<HandyBehaviour>().onStateEnterEvent("attack1", () =>
         {
             shake.Trigger();
+            swordHitSound.PlayRandom();
             timeSinceLastAttack = 0f;
             astronomeer.TakeDamage();
         });
         animator.GetBehaviour<HandyBehaviour>().onStateEnterEvent("attack2", () =>
         {
             shake.Trigger();
+            swordHitSound.PlayRandom();
             timeSinceLastAttack = 0f;
             astronomeer.TakeDamage();
         });
@@ -206,9 +207,11 @@ public class Knight : MonoBehaviour
 
         if (rushingCoroutine != null) 
             StopCoroutine(rushingCoroutine);
-
-        attackButton.SetCooldown(4f);
         rushingCoroutine = StartCoroutine(ChargeAttackCoroutine());
+
+        // allow attack for a little while (this will be overwritten by jump back)
+        attackButton.SetCooldown(-2f);
+        jumpButton.SetCooldown(10000f);
     }
 
     public void StartTurning()
@@ -224,6 +227,8 @@ public class Knight : MonoBehaviour
         jumpback.OnComplete<DG.Tweening.Sequence>(() => { 
             state = State.walking_around;
             animator.Play("walk");
+            attackButton.SetCooldown(4f);
+            jumpButton.SetCooldown(0f);
         });
     }
 
