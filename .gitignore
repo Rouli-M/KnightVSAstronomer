@@ -63,3 +63,7 @@ crashlytics-build.properties
 
 
 KnightVSAstronomeerUnity/Library/
+
+KnightVSAstronomeerUnity/Temp/
+
+KnightVSAstronomeerUnity/Logs/

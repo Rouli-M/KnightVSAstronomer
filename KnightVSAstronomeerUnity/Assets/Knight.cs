@@ -19,7 +19,7 @@ public class Knight : MonoBehaviour
     public float ground_y_level;
     public AnimationCurve jumpCurveBig, jumpCurveSmall;
     public float jump_time;
-    public Coroutine jumpCoroutine, chargeAttackCoroutine;
+    public Coroutine jumpCoroutine, rushingCoroutine;
     public int midair_jumps_left = 0;
     public float timeSinceLastAttack= 0f;
     public LayerMask groundLayer;
@@ -84,10 +84,15 @@ public class Knight : MonoBehaviour
 
             if (timeSinceLastAttack > 1.2f)
             {
-                state = State.retreating;
-                playableDirector.Play(comeBackTimeline);
+                ComeBack();
             }
         }
+    }
+
+    private void ComeBack()
+    {
+        state = State.retreating;
+        playableDirector.Play(comeBackTimeline);
     }
 
     public void FixedUpdate()
@@ -112,6 +117,8 @@ public class Knight : MonoBehaviour
         {
             if(state == State.rushing)
             {
+                StopCoroutine(rushingCoroutine);
+                ComeBack();
                 animator.Play("knocked");
             }
         }
@@ -200,9 +207,9 @@ public class Knight : MonoBehaviour
         }
         if (state != State.walking_around) return; // prevent attack while attack
 
-        if (chargeAttackCoroutine != null) 
-            StopCoroutine(chargeAttackCoroutine);
-        chargeAttackCoroutine = StartCoroutine(ChargeAttackCoroutine());
+        if (rushingCoroutine != null) 
+            StopCoroutine(rushingCoroutine);
+        rushingCoroutine = StartCoroutine(ChargeAttackCoroutine());
     }
 
 
