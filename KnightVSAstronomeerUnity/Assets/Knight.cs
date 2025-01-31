@@ -34,6 +34,8 @@ public class Knight : MonoBehaviour
 
     public CinemachineCamera runCam, attackCam;
 
+    public CooldownButton jumpButton, attackButton;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -204,6 +206,8 @@ public class Knight : MonoBehaviour
 
         if (rushingCoroutine != null) 
             StopCoroutine(rushingCoroutine);
+
+        attackButton.SetCooldown(4f);
         rushingCoroutine = StartCoroutine(ChargeAttackCoroutine());
     }
 
