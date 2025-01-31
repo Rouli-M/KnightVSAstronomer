@@ -39,22 +39,18 @@ public class Knight : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         animator = GetComponentInChildren<Animator>();
-        animator.GetBehaviour<HandyBehaviour>().onStateExitEvent("challenge", () => 
-        { 
-            state = State.walking_around;
-            animator.Play("walk");
-        });
-        animator.GetBehaviour<HandyBehaviour>().onStateExitEvent("attack1", () =>
+        
+        animator.GetBehaviour<HandyBehaviour>().onStateEnterEvent("attack1", () =>
         {
             shake.Trigger();
             timeSinceLastAttack = 0f;
-            //damage astronomeer
+            astronomeer.TakeDamage();
         });
-        animator.GetBehaviour<HandyBehaviour>().onStateExitEvent("attack2", () =>
+        animator.GetBehaviour<HandyBehaviour>().onStateEnterEvent("attack2", () =>
         {
             shake.Trigger();
             timeSinceLastAttack = 0f;
-            //damage astronomeer
+            astronomeer.TakeDamage();
         });
         rot_vel = current_max_velocity;
     }
@@ -125,10 +121,6 @@ public class Knight : MonoBehaviour
         else if (collision.transform.CompareTag("Spell"))
         {
             GetComponentInChildren<Animator>().Play("blink", 1, 0f);
-            ParticleSystem ps = collision.gameObject.transform.GetChild(0).GetComponent<ParticleSystem>();
-            ps.transform.SetParent(null);
-            ps.Play();
-            Destroy(collision.gameObject);
             rot_vel = -1;
         }
     }
@@ -136,6 +128,9 @@ public class Knight : MonoBehaviour
     public void Jump()
     {
         Debug.Log("Knight.jump");
+        if (state != State.jumping && state != State.walking_around)
+            return;
+
         //rb.linearVelocity = Vector3.up * 12;
         if (jumpCoroutine != null)
             StopCoroutine(jumpCoroutine);
@@ -210,6 +205,12 @@ public class Knight : MonoBehaviour
         if (rushingCoroutine != null) 
             StopCoroutine(rushingCoroutine);
         rushingCoroutine = StartCoroutine(ChargeAttackCoroutine());
+    }
+
+    public void StartTurning()
+    {
+        state = State.walking_around;
+        animator.Play("walk");
     }
 
 

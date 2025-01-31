@@ -11,6 +11,9 @@ public class TiltingBall : MonoBehaviour
 
     public void OnCollisionEnter(Collision collision)
     {
-        animator.Play("tilt");
+        if (Time.unscaledTime < 2f)
+            return;
+        Debug.Log("tilting head collision detected");
+        animator.Play("tilt",0,0f);
     }
 }

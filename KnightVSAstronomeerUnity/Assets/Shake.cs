@@ -7,6 +7,6 @@ public class ShakeCamera : MonoBehaviour
 
     public void Trigger()
     {
-        impulseSource.GenerateImpulse(new Vector3(2,0));
+        impulseSource.GenerateImpulse(new Vector3(0.5f,0.5f));
     }
 }

@@ -1,3 +1,5 @@
+using DG.Tweening;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Astronomer : MonoBehaviour
@@ -5,6 +7,7 @@ public class Astronomer : MonoBehaviour
     public GameObject knight;
     public GameObject spellprefab;
     public float radius;
+    Animator animator;
 
 
     public float spell_cooldown;
@@ -12,6 +15,7 @@ public class Astronomer : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        animator = GetComponentInChildren<Animator>();  
         radius = (knight.transform.position - transform.position).magnitude;
     }
 
@@ -23,7 +27,8 @@ public class Astronomer : MonoBehaviour
             spell_cooldown -= Time.deltaTime;
             if(spell_cooldown <= 0)
             {
-                ShootFireball();
+                //ShootFireball();
+                animator.Play("cast_fireball"); // anim event will call ShootFireball
                 spell_cooldown = Random.Range(3, 6);
             }
         }
@@ -31,24 +36,33 @@ public class Astronomer : MonoBehaviour
 
     public void TakeDamage()
     {
-        GetComponent<Animator>().Play("blink", 1, 0f);
+        animator.Play("hurt",0,0f);
+        //GetComponent<Animator>().Play("blink", 1, 0f);
     }
 
     public void ShootFireball()
     {
-        GameObject fireball = Instantiate(spellprefab, transform.position + Vector3.up * 1f, Quaternion.identity);
-        fireball.transform.position = transform.position;
 
         float player_hit_time = 2f;// we want to hit the player in 2 seconds
         float spell_velocity = radius / player_hit_time;
 
         float angle_offset = knight.GetComponent<Knight>().current_max_velocity / spell_velocity;
         angle_offset = Mathf.Rad2Deg * angle_offset * 0.5f;
+
+
+        Vector3 AstronomerLookAtDirection = new Vector3(knight.transform.position.x, transform.position.y, knight.transform.position.z);
+        transform.LookAt(AstronomerLookAtDirection);
+        transform.Rotate(Vector3.up, -angle_offset, Space.World);
+
+
+        Vector3 fireballSpawnPos = transform.position + Vector3.up * 1f + transform.forward;
+        GameObject fireball = Instantiate(spellprefab, fireballSpawnPos, Quaternion.identity);
+
         Debug.Log("spell angle offset in degree = " + angle_offset);
+
 
         fireball.transform.LookAt(new Vector3(knight.transform.position.x, knight.GetComponent<Knight>().ground_y_level, knight.transform.position.z)); // dont aim at jumping knight
         fireball.transform.Rotate(Vector3.up, -angle_offset, Space.World);
-
         fireball.GetComponent<Rigidbody>().linearVelocity = fireball.transform.forward * spell_velocity;
     }
 }
