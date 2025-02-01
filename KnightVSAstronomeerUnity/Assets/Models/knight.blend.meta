@@ -56,14 +56,14 @@ ModelImporter:
       curves: []
       events:
       - time: 0.30496454
-        functionName: StepSound
+        functionName: StepSound2
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
       - time: 0.8758865
-        functionName: StepSound
+        functionName: StepSound2
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0

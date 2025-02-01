@@ -423,10 +423,10 @@ MonoBehaviour:
     m_PreExtrapolationTime: 0
     m_DisplayName: challenge
   - m_Version: 1
-    m_Start: 0
-    m_ClipIn: 0
+    m_Start: 0.8333333333333339
+    m_ClipIn: 0.8333333333333339
     m_Asset: {fileID: -6039025417846708716}
-    m_Duration: 1.8333333333333333
+    m_Duration: 0.9999999999999997
     m_TimeScale: 1
     m_ParentTrack: {fileID: 25858993735596840}
     m_EaseInDuration: 0
@@ -488,8 +488,8 @@ MonoBehaviour:
     m_Recordable: 0
     m_PostExtrapolationMode: 1
     m_PreExtrapolationMode: 1
-    m_PostExtrapolationTime: 0.008333333333333304
-    m_PreExtrapolationTime: 0
+    m_PostExtrapolationTime: 0.008333333333333082
+    m_PreExtrapolationTime: 0.8333333333333339
     m_DisplayName: charge
   m_Markers:
     m_Objects: []

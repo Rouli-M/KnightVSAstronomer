@@ -1,0 +1,12 @@
+# ninja log v5
+182	11358	7601406198692807	GameActivity/CMakeFiles/game.dir/UGAEntry.cpp.o	91b69f7b94c320d1
+78	12070	7601406206237886	GameActivity/CMakeFiles/game.dir/UGAConfiguration.cpp.o	cec376bcc86815e4
+545	12459	7601406209303521	GameActivity/CMakeFiles/game.dir/UGASoftKeyboard.cpp.o	9850c0c2aa03ce1f
+203	12551	7601406203149205	GameActivity/CMakeFiles/game.dir/UGAInputKeyEvent.cpp.o	ce9b63de02d0d3b5
+589	12570	7601406194287194	FramePacing/CMakeFiles/swappywrapper.dir/UnitySwappyWrapper.cpp.o	ca84f611718a043e
+225	13177	7601406216186336	GameActivity/CMakeFiles/game.dir/UGAInput.cpp.o	a9afa925e4499aaa
+474	14760	7601406222588930	GameActivity/CMakeFiles/game.dir/UGAInputMotionEvent.cpp.o	398173a9c68a4d24
+122	15159	7601406227772859	GameActivity/CMakeFiles/game.dir/UGADebug.cpp.o	4709266443f97743
+12572	15759	7601406241967786	C:/Users/nittr/Documents/Artisanat/Gamedev/KnightVSAstronomer/KnightVSAstronomeerUnity/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/4p382n33/obj/arm64-v8a/libswappywrapper.so	f35b9c1e5b163d06
+8	17083	7601406252154254	GameActivity/CMakeFiles/game.dir/UGAApplication.cpp.o	2450c9dde37c030e
+17203	19471	7601406274406913	C:/Users/nittr/Documents/Artisanat/Gamedev/KnightVSAstronomer/KnightVSAstronomeerUnity/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/4p382n33/obj/arm64-v8a/libgame.so	7d52798774a52fbb

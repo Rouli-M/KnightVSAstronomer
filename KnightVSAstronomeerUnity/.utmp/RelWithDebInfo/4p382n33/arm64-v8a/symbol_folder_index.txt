@@ -1,0 +1,1 @@
+C:\Users\nittr\Documents\Artisanat\Gamedev\KnightVSAstronomer\KnightVSAstronomeerUnity\Library\Bee\Android\Prj\IL2CPP\Gradle\unityLibrary\build\intermediates\cxx\RelWithDebInfo\4p382n33\obj\arm64-v8a

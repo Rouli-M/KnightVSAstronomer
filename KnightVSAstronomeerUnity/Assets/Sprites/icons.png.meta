@@ -197,6 +197,28 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: icons_2
+      rect:
+        serializedVersion: 2
+        x: 114
+        y: 237
+        width: 114
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 81abe0e035261c54aacd047089989249
+      internalID: -1928878951
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
@@ -214,6 +236,7 @@ TextureImporter:
       circle: 712339960
       icons_0: -1939949779
       icons_1: -1666631235
+      icons_2: -1928878951
       "pointill\xE9s": -2029365878
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0

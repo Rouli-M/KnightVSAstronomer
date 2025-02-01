@@ -23,15 +23,18 @@ public class Knight : MonoBehaviour
     public int midair_jumps_left = 0;
     public float timeSinceLastAttack= 0f;
     public LayerMask groundLayer;
-    public AudioClipPlayRandomizer swordHitSound, jumpSound, jumpSound2;
-    public enum State { walking_around, rushing, attacking, retreating, jumping, intro }
+    public enum State { walking_around, rushing, attacking, retreating, jumping, intro, ending }
     public State state;
     Animator animator;
+    public AudioClipPlayRandomizer swordHitSound, jumpSound, jumpSound2, stepSound;
+    public AudioClip roll;
+    public AudioSource hitAudio;
 
     public PlayableDirector playableDirector;
     public TimelineAsset comeBackTimeline, charge_attack_timeline, attack_timeline, ending_timeline, intro_timeline;
     public ShakeCamera shake;
     public Vector3 initialAttackPosition;
+    public AudioSource music;
 
     public CooldownButton jumpButton, attackButton;
 
@@ -54,6 +57,11 @@ public class Knight : MonoBehaviour
             swordHitSound.PlayRandom();
             timeSinceLastAttack = 0f;
             astronomeer.TakeDamage();
+        });
+        animator.GetBehaviour<HandyBehaviour>().onStateEnterEvent("roll", () =>
+        {
+            GetComponent<AudioSource>().clip = roll;
+            GetComponent<AudioSource>().Play();
         });
         rot_vel = current_max_velocity;
     }
@@ -93,6 +101,7 @@ public class Knight : MonoBehaviour
         state = State.walking_around;
         animator.Play("walk");
         attackButton.SetCooldown(5f);
+        music.Play();
     }
 
 
@@ -131,8 +140,12 @@ public class Knight : MonoBehaviour
         }
         else if (collision.transform.CompareTag("Spell"))
         {
-            GetComponentInChildren<Animator>().Play("blink", 1, 0f);
-            rot_vel = -1;
+            if(state == State.walking_around || state == State.jumping)
+            {
+                GetComponentInChildren<Animator>().Play("blink", 1, 0f);
+                hitAudio.Play();
+                rot_vel = -1;
+            }
         }
     }
 
@@ -158,6 +171,12 @@ public class Knight : MonoBehaviour
             midair_jumps_left--;
             jumpCoroutine = StartCoroutine(JumpEnumerator(true));
         }
+    }
+
+    public void TryPlayStepSound()
+    {
+        if (state == State.walking_around)
+            stepSound.PlayRandom();
     }
 
     public IEnumerator JumpEnumerator(bool small = false)
@@ -200,6 +219,8 @@ public class Knight : MonoBehaviour
         playableDirector.Play(attack_timeline);
         state = State.attacking;
         animator.Play("attack1"); // playing it here instead of in timeline to use trigger
+        attackButton.SetCooldown(-1.2f);
+
         timeSinceLastAttack = 0f;
         yield return null;
     }
@@ -220,7 +241,7 @@ public class Knight : MonoBehaviour
         rushingCoroutine = StartCoroutine(ChargeAttackCoroutine());
 
         // allow attack for a little while (this will be overwritten by jump back)
-        attackButton.SetCooldown(-2f);
+        attackButton.SetCooldown(10000);
         jumpButton.SetCooldown(10000f);
     }
 
@@ -232,7 +253,7 @@ public class Knight : MonoBehaviour
         jumpback.OnComplete<DG.Tweening.Sequence>(() => { 
             state = State.walking_around;
             animator.Play("walk");
-            attackButton.SetCooldown(5f);
+            attackButton.SetCooldown(6f);
             jumpButton.SetCooldown(0f);
 
             astronomeer.lifeHUDAnimator.SetBool("show", false);
@@ -241,7 +262,9 @@ public class Knight : MonoBehaviour
             {
                 //attackButton.SetCooldown(9999f);
                 //jumpButton.SetCooldown(9999f);
+                state = State.ending;
                 playableDirector.Play(ending_timeline);
+                music.Stop();
             }
         });
     }

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class CooldownButton : MonoBehaviour
@@ -7,6 +8,9 @@ public class CooldownButton : MonoBehaviour
     public Image circleCD;
     public Button button;
     public Color disabledColor;
+    public Key overrideKey;
+
+    public GameObject tap_anim;
 
     public void SetCooldown(float time)
     {
@@ -17,6 +21,7 @@ public class CooldownButton : MonoBehaviour
         {
             // cant use for time
             button.interactable = false;
+            tap_anim.SetActive(false);
             circleCD.color = disabledColor;
         }
         else if (time < 0)
@@ -24,18 +29,30 @@ public class CooldownButton : MonoBehaviour
             // can use for -time
             button.interactable = true;
             circleCD.color = Color.white;
+            tap_anim.SetActive(true);
         }
         else
         {
             button.interactable = true;
             circleCD.color = Color.white;
             circleCD.fillAmount = 1f;
+            tap_anim.SetActive(false);
         }
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(overrideKey != Key.None)
+        {
+            GetComponent<CanvasGroup>().alpha = 0f;
+            if (Keyboard.current[overrideKey].wasPressedThisFrame && GetComponent<Button>().interactable)
+            {
+                GetComponent<Button>().onClick.Invoke();
+            }
+        }
+
+
         if(current_time>0f)
         {
             current_time-=Time.deltaTime;
