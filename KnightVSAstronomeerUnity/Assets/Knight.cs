@@ -23,13 +23,13 @@ public class Knight : MonoBehaviour
     public int midair_jumps_left = 0;
     public float timeSinceLastAttack= 0f;
     public LayerMask groundLayer;
-    public AudioClipPlayRandomizer swordHitSound;
+    public AudioClipPlayRandomizer swordHitSound, jumpSound, jumpSound2;
     public enum State { walking_around, rushing, attacking, retreating, jumping, intro }
     public State state;
     Animator animator;
 
     public PlayableDirector playableDirector;
-    public TimelineAsset comeBackTimeline, charge_attack_timeline, attack_timeline;
+    public TimelineAsset comeBackTimeline, charge_attack_timeline, attack_timeline, ending_timeline, intro_timeline;
     public ShakeCamera shake;
     public Vector3 initialAttackPosition;
 
@@ -88,6 +88,14 @@ public class Knight : MonoBehaviour
         }
     }
 
+    public void StartTurning()
+    {
+        state = State.walking_around;
+        animator.Play("walk");
+        attackButton.SetCooldown(5f);
+    }
+
+
     private void ComeBack()
     {
         state = State.retreating;
@@ -140,11 +148,13 @@ public class Knight : MonoBehaviour
 
         if(isGrounded())
         {
+            jumpSound.PlayRandom();
             midair_jumps_left = 1;
             jumpCoroutine = StartCoroutine(JumpEnumerator(false));
         }
         else if(midair_jumps_left>0)
         {
+            jumpSound2.PlayRandom();
             midair_jumps_left--;
             jumpCoroutine = StartCoroutine(JumpEnumerator(true));
         }
@@ -214,11 +224,6 @@ public class Knight : MonoBehaviour
         jumpButton.SetCooldown(10000f);
     }
 
-    public void StartTurning()
-    {
-        state = State.walking_around;
-        animator.Play("walk");
-    }
 
 
     public void JumpBack()
@@ -227,8 +232,17 @@ public class Knight : MonoBehaviour
         jumpback.OnComplete<DG.Tweening.Sequence>(() => { 
             state = State.walking_around;
             animator.Play("walk");
-            attackButton.SetCooldown(4f);
+            attackButton.SetCooldown(5f);
             jumpButton.SetCooldown(0f);
+
+            astronomeer.lifeHUDAnimator.SetBool("show", false);
+
+            if (astronomeer.life <= 0f)
+            {
+                //attackButton.SetCooldown(9999f);
+                //jumpButton.SetCooldown(9999f);
+                playableDirector.Play(ending_timeline);
+            }
         });
     }
 

@@ -4,10 +4,15 @@ using UnityEngine.Events;
 
 public class KnightAnimEvents : MonoBehaviour
 {
-    public UnityEvent jumpback;
+    public UnityEvent jumpback, stepSound;
 
     public void JumpBack()
     {
         jumpback.Invoke();
+    }
+
+    public void StepSound()
+    {
+        stepSound.Invoke();
     }
 }

@@ -1,6 +1,7 @@
 using DG.Tweening;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Astronomer : MonoBehaviour
 {
@@ -8,15 +9,27 @@ public class Astronomer : MonoBehaviour
     public GameObject spellprefab;
     public float radius;
     Animator animator;
-
+    public float life = 1f;
+    public Image lifeFill, lifeWhiteFill;
 
     public float spell_cooldown;
+    public Animator lifeHUDAnimator;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         animator = GetComponentInChildren<Animator>();
-        animator.GetBehaviour<HandyBehaviour>().onStateExitEvent("hurt", () => { if (spell_cooldown < 2f) spell_cooldown += 2f; });
+        animator.GetBehaviour<HandyBehaviour>().onStateExitEvent("hurt", () => 
+        {
+            if (spell_cooldown < 2f) 
+                spell_cooldown += 2f; 
+        });
+
+        animator.GetBehaviour<HandyBehaviour>().onStateEnterEvent("idle", () =>
+        {
+            lifeWhiteFill.fillAmount = lifeFill.fillAmount;
+        });
         radius = (knight.transform.position - transform.position).magnitude;
     }
 
@@ -26,6 +39,8 @@ public class Astronomer : MonoBehaviour
         if (knight.GetComponent<Knight>().state == Knight.State.intro)
             return;
 
+        if (life <= 0f)
+            return;
 
         if (spell_cooldown > 0)
         {
@@ -36,14 +51,21 @@ public class Astronomer : MonoBehaviour
                 //ShootFireball();
                 animator.Play("cast_fireball"); // anim event will call ShootFireball
                 spell_cooldown = Random.Range(3, 6);
+                spell_cooldown *= 0.2f + life * 0.8f;
             }
         }
+
+        animator.SetFloat("speed", 1 + (1-life) * 1.5f);
     }
 
     public void TakeDamage()
     {
         animator.Play("hurt",0,0f);
         GetComponent<AudioClipPlayRandomizer>().PlayRandom();
+        life -= 0.025f;
+        lifeHUDAnimator.SetBool("show", true);
+
+        lifeFill.fillAmount = life;
         //GetComponent<Animator>().Play("blink", 1, 0f);
     }
 
