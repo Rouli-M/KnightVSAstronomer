@@ -1,4 +1,5 @@
 using DG.Tweening;
+using Unity.Cinemachine;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -64,6 +65,12 @@ public class Astronomer : MonoBehaviour
         GetComponent<AudioClipPlayRandomizer>().PlayRandom();
         life -= 0.025f;
         lifeHUDAnimator.SetBool("show", true);
+
+        Canvas canvas = lifeHUDAnimator.GetComponentInParent<Canvas>();
+        Vector3 canvasLookAt = new Vector3(-knight.transform.position.x, canvas.transform.position.y, -knight.transform.position.z);
+        canvas.transform.LookAt(canvasLookAt, Vector3.up);
+        // make UI face player? idk
+        //FindObjectOfType<CinemachineBrain>().ParentCamera
 
         lifeFill.fillAmount = life;
         //GetComponent<Animator>().Play("blink", 1, 0f);

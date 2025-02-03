@@ -18,7 +18,7 @@
 ANDROID_ABI:UNINITIALIZED=arm64-v8a
 
 //No help, variable specified on the command line.
-ANDROID_NDK:UNINITIALIZED=C:\Program Files\Unity\Hub\Editor\6000.0.26f1\Editor\Data\PlaybackEngines\AndroidPlayer\NDK
+ANDROID_NDK:UNINITIALIZED=C:\Program Files\Unity\Hub\Editor\6000.0.35f1\Editor\Data\PlaybackEngines\AndroidPlayer\NDK
 
 //No help, variable specified on the command line.
 ANDROID_PLATFORM:UNINITIALIZED=android-23
@@ -27,16 +27,16 @@ ANDROID_PLATFORM:UNINITIALIZED=android-23
 ANDROID_STL:UNINITIALIZED=c++_shared
 
 //Path to a program.
-CMAKE_ADDR2LINE:FILEPATH=C:/Program Files/Unity/Hub/Editor/6000.0.26f1/Editor/Data/PlaybackEngines/AndroidPlayer/NDK/toolchains/llvm/prebuilt/windows-x86_64/bin/llvm-addr2line.exe
+CMAKE_ADDR2LINE:FILEPATH=C:/Program Files/Unity/Hub/Editor/6000.0.35f1/Editor/Data/PlaybackEngines/AndroidPlayer/NDK/toolchains/llvm/prebuilt/windows-x86_64/bin/llvm-addr2line.exe
 
 //No help, variable specified on the command line.
 CMAKE_ANDROID_ARCH_ABI:UNINITIALIZED=arm64-v8a
 
 //No help, variable specified on the command line.
-CMAKE_ANDROID_NDK:UNINITIALIZED=C:\Program Files\Unity\Hub\Editor\6000.0.26f1\Editor\Data\PlaybackEngines\AndroidPlayer\NDK
+CMAKE_ANDROID_NDK:UNINITIALIZED=C:\Program Files\Unity\Hub\Editor\6000.0.35f1\Editor\Data\PlaybackEngines\AndroidPlayer\NDK
 
 //Path to a program.
-CMAKE_AR:FILEPATH=C:/Program Files/Unity/Hub/Editor/6000.0.26f1/Editor/Data/PlaybackEngines/AndroidPlayer/NDK/toolchains/llvm/prebuilt/windows-x86_64/bin/llvm-ar.exe
+CMAKE_AR:FILEPATH=C:/Program Files/Unity/Hub/Editor/6000.0.35f1/Editor/Data/PlaybackEngines/AndroidPlayer/NDK/toolchains/llvm/prebuilt/windows-x86_64/bin/llvm-ar.exe
 
 //Choose the type of build, options are: None Debug Release RelWithDebInfo
 // MinSizeRel ...
@@ -115,7 +115,7 @@ CMAKE_INSTALL_PREFIX:PATH=C:/Program Files (x86)/Unity
 CMAKE_LIBRARY_OUTPUT_DIRECTORY:UNINITIALIZED=C:\Users\nittr\Documents\Artisanat\Gamedev\KnightVSAstronomer\KnightVSAstronomeerUnity\Library\Bee\Android\Prj\IL2CPP\Gradle\unityLibrary\build\intermediates\cxx\RelWithDebInfo\4p382n33\obj\arm64-v8a
 
 //Path to a program.
-CMAKE_LINKER:FILEPATH=C:/Program Files/Unity/Hub/Editor/6000.0.26f1/Editor/Data/PlaybackEngines/AndroidPlayer/NDK/toolchains/llvm/prebuilt/windows-x86_64/bin/ld.lld.exe
+CMAKE_LINKER:FILEPATH=C:/Program Files/Unity/Hub/Editor/6000.0.35f1/Editor/Data/PlaybackEngines/AndroidPlayer/NDK/toolchains/llvm/prebuilt/windows-x86_64/bin/ld.lld.exe
 
 //make program
 CMAKE_MAKE_PROGRAM:FILEPATH=C:/Program Files (x86)/Android/android-sdk/cmake/3.22.1/bin/ninja.exe
@@ -141,13 +141,13 @@ CMAKE_MODULE_LINKER_FLAGS_RELEASE:STRING=
 CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO:STRING=
 
 //Path to a program.
-CMAKE_NM:FILEPATH=C:/Program Files/Unity/Hub/Editor/6000.0.26f1/Editor/Data/PlaybackEngines/AndroidPlayer/NDK/toolchains/llvm/prebuilt/windows-x86_64/bin/llvm-nm.exe
+CMAKE_NM:FILEPATH=C:/Program Files/Unity/Hub/Editor/6000.0.35f1/Editor/Data/PlaybackEngines/AndroidPlayer/NDK/toolchains/llvm/prebuilt/windows-x86_64/bin/llvm-nm.exe
 
 //Path to a program.
-CMAKE_OBJCOPY:FILEPATH=C:/Program Files/Unity/Hub/Editor/6000.0.26f1/Editor/Data/PlaybackEngines/AndroidPlayer/NDK/toolchains/llvm/prebuilt/windows-x86_64/bin/llvm-objcopy.exe
+CMAKE_OBJCOPY:FILEPATH=C:/Program Files/Unity/Hub/Editor/6000.0.35f1/Editor/Data/PlaybackEngines/AndroidPlayer/NDK/toolchains/llvm/prebuilt/windows-x86_64/bin/llvm-objcopy.exe
 
 //Path to a program.
-CMAKE_OBJDUMP:FILEPATH=C:/Program Files/Unity/Hub/Editor/6000.0.26f1/Editor/Data/PlaybackEngines/AndroidPlayer/NDK/toolchains/llvm/prebuilt/windows-x86_64/bin/llvm-objdump.exe
+CMAKE_OBJDUMP:FILEPATH=C:/Program Files/Unity/Hub/Editor/6000.0.35f1/Editor/Data/PlaybackEngines/AndroidPlayer/NDK/toolchains/llvm/prebuilt/windows-x86_64/bin/llvm-objdump.exe
 
 //Value Computed by CMake
 CMAKE_PROJECT_DESCRIPTION:STATIC=
@@ -159,10 +159,10 @@ CMAKE_PROJECT_HOMEPAGE_URL:STATIC=
 CMAKE_PROJECT_NAME:STATIC=Unity
 
 //Path to a program.
-CMAKE_RANLIB:FILEPATH=C:/Program Files/Unity/Hub/Editor/6000.0.26f1/Editor/Data/PlaybackEngines/AndroidPlayer/NDK/toolchains/llvm/prebuilt/windows-x86_64/bin/llvm-ranlib.exe
+CMAKE_RANLIB:FILEPATH=C:/Program Files/Unity/Hub/Editor/6000.0.35f1/Editor/Data/PlaybackEngines/AndroidPlayer/NDK/toolchains/llvm/prebuilt/windows-x86_64/bin/llvm-ranlib.exe
 
 //Path to a program.
-CMAKE_READELF:FILEPATH=C:/Program Files/Unity/Hub/Editor/6000.0.26f1/Editor/Data/PlaybackEngines/AndroidPlayer/NDK/toolchains/llvm/prebuilt/windows-x86_64/bin/llvm-readelf.exe
+CMAKE_READELF:FILEPATH=C:/Program Files/Unity/Hub/Editor/6000.0.35f1/Editor/Data/PlaybackEngines/AndroidPlayer/NDK/toolchains/llvm/prebuilt/windows-x86_64/bin/llvm-readelf.exe
 
 //No help, variable specified on the command line.
 CMAKE_RUNTIME_OUTPUT_DIRECTORY:UNINITIALIZED=C:\Users\nittr\Documents\Artisanat\Gamedev\KnightVSAstronomer\KnightVSAstronomeerUnity\Library\Bee\Android\Prj\IL2CPP\Gradle\unityLibrary\build\intermediates\cxx\RelWithDebInfo\4p382n33\obj\arm64-v8a
@@ -215,7 +215,7 @@ CMAKE_STATIC_LINKER_FLAGS_RELEASE:STRING=
 CMAKE_STATIC_LINKER_FLAGS_RELWITHDEBINFO:STRING=
 
 //Path to a program.
-CMAKE_STRIP:FILEPATH=C:/Program Files/Unity/Hub/Editor/6000.0.26f1/Editor/Data/PlaybackEngines/AndroidPlayer/NDK/toolchains/llvm/prebuilt/windows-x86_64/bin/llvm-strip.exe
+CMAKE_STRIP:FILEPATH=C:/Program Files/Unity/Hub/Editor/6000.0.35f1/Editor/Data/PlaybackEngines/AndroidPlayer/NDK/toolchains/llvm/prebuilt/windows-x86_64/bin/llvm-strip.exe
 
 //No help, variable specified on the command line.
 CMAKE_SYSTEM_NAME:UNINITIALIZED=Android
@@ -224,7 +224,7 @@ CMAKE_SYSTEM_NAME:UNINITIALIZED=Android
 CMAKE_SYSTEM_VERSION:UNINITIALIZED=23
 
 //The CMake toolchain file
-CMAKE_TOOLCHAIN_FILE:FILEPATH=C:/Program Files/Unity/Hub/Editor/6000.0.26f1/Editor/Data/PlaybackEngines/AndroidPlayer/NDK/build/cmake/android.toolchain.cmake
+CMAKE_TOOLCHAIN_FILE:FILEPATH=C:/Program Files/Unity/Hub/Editor/6000.0.35f1/Editor/Data/PlaybackEngines/AndroidPlayer/NDK/build/cmake/android.toolchain.cmake
 
 //If this value is on, makefiles will be generated without the
 // .SILENT directive, and all commands will be echoed to the console

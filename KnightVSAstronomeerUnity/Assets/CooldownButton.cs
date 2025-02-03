@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class CooldownButton : MonoBehaviour
 {
-    float total_time, current_time;
+    public float total_time, current_time;
     public Image circleCD;
     public Button button;
     public Color disabledColor;

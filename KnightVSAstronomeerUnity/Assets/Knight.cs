@@ -100,7 +100,7 @@ public class Knight : MonoBehaviour
     {
         state = State.walking_around;
         animator.Play("walk");
-        attackButton.SetCooldown(5f);
+        attackButton.SetCooldown(6f);
         music.Play();
     }
 
