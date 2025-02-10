@@ -3297,7 +3297,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clips:
-  - {fileID: 8300000, guid: eddb57ade81fbb04dacdc383f0c4d7ed, type: 3}
+  - {fileID: 8300000, guid: ed7758582069cba49b49712099e5502a, type: 3}
   volume: 0.1
   pitchMinRandomValue: 0.8
   pitchMaxRandomValue: 1.2
@@ -3601,8 +3601,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1229892579}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.09693447, y: 0.8849443, z: -0.21307623, w: -0.40258646}
-  m_LocalPosition: {x: 5.53, y: 5.75, z: -20.6}
+  m_LocalRotation: {x: 0.0005694856, y: 0.983773, z: -0.17938976, w: 0.0031230575}
+  m_LocalPosition: {x: -0.12, y: 9.13, z: -6.52}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4440,7 +4440,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 715442251345645280, guid: e7f388f667d38c74b96e824e363e5cbe, type: 3}
       propertyPath: overrideKey
-      value: 0
+      value: 61
       objectReference: {fileID: 0}
     - target: {fileID: 2340738831308718182, guid: e7f388f667d38c74b96e824e363e5cbe, type: 3}
       propertyPath: m_Interactable
@@ -5852,7 +5852,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 715442251345645280, guid: e7f388f667d38c74b96e824e363e5cbe, type: 3}
       propertyPath: overrideKey
-      value: 0
+      value: 62
       objectReference: {fileID: 0}
     - target: {fileID: 2340738831308718182, guid: e7f388f667d38c74b96e824e363e5cbe, type: 3}
       propertyPath: m_Interactable
